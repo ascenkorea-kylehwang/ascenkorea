@@ -5,12 +5,6 @@ export type ViewState = 'home' | 'company' | 'products' | 'tech' | 'support'
 
 export type Language = 'ko' | 'en';
 
-export interface Feature {
-  title: string;
-  description: string;
-  icon: string;
-}
-
 export interface ChatMessage {
   role: 'user' | 'model';
   text: string;
