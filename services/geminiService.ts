@@ -2,10 +2,14 @@
 import { GoogleGenAI } from "@google/genai";
 import { ChatMessage, Language } from "../types";
 
-// API 키를 안전하게 가져오는 헬퍼 (배포 환경의 process.env 대응)
 const getApiKey = () => {
+  // Vite의 define 설정을 통해 주입된 값을 우선 사용
+  const key = process.env.API_KEY;
+  if (key) return key;
+  
+  // 폴백 로직
   try {
-    return process.env.API_KEY || "";
+    return (globalThis as any).process?.env?.API_KEY || "";
   } catch (e) {
     return "";
   }
@@ -13,7 +17,11 @@ const getApiKey = () => {
 
 export const getDailyInsight = async (lang: Language = 'ko') => {
   const apiKey = getApiKey();
-  if (!apiKey) return lang === 'ko' ? "정밀함이 미래를 만듭니다." : "Precision creates the future.";
+  // API 키가 없을 경우 조용히 기본 메시지 반환 (화면 멈춤 방지)
+  if (!apiKey) {
+    console.warn("Gemini API_KEY is missing. Using fallback message.");
+    return lang === 'ko' ? "정밀함이 미래를 만듭니다." : "Precision creates the future.";
+  }
 
   const ai = new GoogleGenAI({ apiKey });
   const prompt = lang === 'ko' 
@@ -27,7 +35,7 @@ export const getDailyInsight = async (lang: Language = 'ko') => {
     });
     return response.text?.trim() || (lang === 'ko' ? "정밀함이 미래를 만듭니다." : "Precision creates future.");
   } catch (error) {
-    console.warn("Insight generation failed, using fallback.");
+    console.error("Gemini Insight generation failed:", error);
     return lang === 'ko' ? "초정밀 위치 정보로 세상을 연결합니다." : "Connecting the world with precision.";
   }
 };
