@@ -1,6 +1,8 @@
+
 import React from 'react';
 import ChatWidget from '../ChatWidget';
-import { Language } from '../../App';
+// Fix: Import Language from types instead of App
+import { Language } from '../../types';
 
 // Updated to accept lang prop to fix TypeScript error in App.tsx
 const SupportPage: React.FC<{ lang: Language }> = ({ lang }) => {

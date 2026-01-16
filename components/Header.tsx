@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { ViewState, Language } from '../App';
+import { ViewState, Language } from '../types';
 
 interface HeaderProps {
   setView: (view: ViewState) => void;
@@ -13,9 +13,7 @@ const Header: React.FC<HeaderProps> = ({ setView, currentView, lang, setLang }) 
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -41,16 +39,9 @@ const Header: React.FC<HeaderProps> = ({ setView, currentView, lang, setLang }) 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || !isHome ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'}`}>
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <button 
-          onClick={() => setView('home')} 
-          className="flex items-center gap-3 group outline-none"
-        >
+        <button onClick={() => setView('home')} className="flex items-center gap-3 group outline-none">
           <div className="flex items-center gap-2">
-            <svg 
-              viewBox="0 0 100 80" 
-              className={`w-10 h-auto transition-all duration-300 group-hover:scale-105 ${logoColor}`}
-              fill="currentColor"
-            >
+            <svg viewBox="0 0 100 80" className={`w-10 h-auto transition-all duration-300 group-hover:scale-105 ${logoColor}`} fill="currentColor">
               <path d="M50 0L95 80H78L50 28L22 80H5L50 0Z" />
               <path d="M38 52H62V64H38V52Z" />
             </svg>
@@ -73,24 +64,12 @@ const Header: React.FC<HeaderProps> = ({ setView, currentView, lang, setLang }) 
               {item.label}
             </button>
           ))}
-          
           <div className="flex items-center gap-3 ml-4 border-l border-slate-200 pl-6">
-            <button 
-              onClick={() => setLang('ko')} 
-              className={`text-sm font-black transition-all ${lang === 'ko' ? 'text-blue-600' : logoColor + ' opacity-40 hover:opacity-100'}`}
-            >
-              KO
-            </button>
+            <button onClick={() => setLang('ko')} className={`text-sm font-black transition-all ${lang === 'ko' ? 'text-blue-600' : logoColor + ' opacity-40 hover:opacity-100'}`}>KO</button>
             <span className={`${logoColor} opacity-20`}>|</span>
-            <button 
-              onClick={() => setLang('en')} 
-              className={`text-sm font-black transition-all ${lang === 'en' ? 'text-blue-600' : logoColor + ' opacity-40 hover:opacity-100'}`}
-            >
-              EN
-            </button>
+            <button onClick={() => setLang('en')} className={`text-sm font-black transition-all ${lang === 'en' ? 'text-blue-600' : logoColor + ' opacity-40 hover:opacity-100'}`}>EN</button>
           </div>
-
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2.5 rounded-full font-black transition-all">
+          <button onClick={() => setView('support')} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2.5 rounded-full font-black transition-all">
             {lang === 'ko' ? '문의하기' : 'Inquiry'}
           </button>
         </nav>

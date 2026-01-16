@@ -19,11 +19,7 @@ import InfrastructureProjectPage from './components/pages/InfrastructureProjectP
 import MobilityProjectPage from './components/pages/MobilityProjectPage';
 import MappingProjectPage from './components/pages/MappingProjectPage';
 import { getDailyInsight } from './services/geminiService';
-
-export type ViewState = 'home' | 'company' | 'products' | 'tech' | 'support' 
-  | 'products-modules' | 'products-antennas' | 'products-receivers'
-  | 'project-infra' | 'project-mobility' | 'project-mapping';
-export type Language = 'ko' | 'en';
+import { ViewState, Language } from './types';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('home');
@@ -32,36 +28,29 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const fetchInsight = async () => {
-      const daily = await getDailyInsight(lang);
-      setInsight(daily);
+      try {
+        const daily = await getDailyInsight(lang);
+        setInsight(daily);
+      } catch (err) {
+        console.error("Failed to fetch insight:", err);
+      }
     };
     fetchInsight();
-    
     window.scrollTo(0, 0);
   }, [view, lang]);
 
   const renderContent = () => {
     switch (view) {
-      case 'company':
-        return <CompanyPage lang={lang} />;
-      case 'products':
-        return <ProductsPage lang={lang} />;
-      case 'tech':
-        return <TechnologyPage lang={lang} />;
-      case 'support':
-        return <SupportPage lang={lang} />;
-      case 'products-modules':
-        return <ModuleDetailPage lang={lang} setView={setView} />;
-      case 'products-antennas':
-        return <AntennaDetailPage lang={lang} setView={setView} />;
-      case 'products-receivers':
-        return <ReceiverDetailPage lang={lang} setView={setView} />;
-      case 'project-infra':
-        return <InfrastructureProjectPage lang={lang} setView={setView} />;
-      case 'project-mobility':
-        return <MobilityProjectPage lang={lang} setView={setView} />;
-      case 'project-mapping':
-        return <MappingProjectPage lang={lang} setView={setView} />;
+      case 'company': return <CompanyPage lang={lang} />;
+      case 'products': return <ProductsPage lang={lang} />;
+      case 'tech': return <TechnologyPage lang={lang} />;
+      case 'support': return <SupportPage lang={lang} />;
+      case 'products-modules': return <ModuleDetailPage lang={lang} setView={setView} />;
+      case 'products-antennas': return <AntennaDetailPage lang={lang} setView={setView} />;
+      case 'products-receivers': return <ReceiverDetailPage lang={lang} setView={setView} />;
+      case 'project-infra': return <InfrastructureProjectPage lang={lang} setView={setView} />;
+      case 'project-mobility': return <MobilityProjectPage lang={lang} setView={setView} />;
+      case 'project-mapping': return <MappingProjectPage lang={lang} setView={setView} />;
       default:
         return (
           <>

@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { ViewState, Language } from '../../App';
+// Fix: Import ViewState and Language from types instead of App
+import { ViewState, Language } from '../../types';
 
 const ReceiverDetailPage: React.FC<{ lang: Language; setView: (v: ViewState) => void }> = ({ lang, setView }) => {
   return (

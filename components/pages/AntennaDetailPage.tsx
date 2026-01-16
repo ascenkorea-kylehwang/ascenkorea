@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { ViewState, Language } from '../../App';
+// Fix: Import ViewState and Language from types instead of App
+import { ViewState, Language } from '../../types';
 
 const AntennaDetailPage: React.FC<{ lang: Language; setView: (v: ViewState) => void }> = ({ lang, setView }) => {
   return (
@@ -38,12 +39,12 @@ const AntennaDetailPage: React.FC<{ lang: Language; setView: (v: ViewState) => v
               { 
                 title: lang === 'ko' ? "차량용" : "Automotive", 
                 desc: lang === 'ko' ? "차량용 IATF16949 인증 규격에 부합하는 내장/외장 안테나" : "Internal/external antennas meeting automotive IATF16949 certification standards",
-                img: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800"
+                img: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=1000"
               },
               { 
                 title: lang === 'ko' ? "IoT 및 모바일" : "IoT & Mobile", 
                 desc: lang === 'ko' ? "초소형 패치 안테나 및 커스텀 기구 설계 대응 지원" : "Support for ultra-small patch antennas and custom mechanical design",
-                img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800"
+                img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1000"
               }
             ].map((item, i) => (
               <div key={i} className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-100 group">

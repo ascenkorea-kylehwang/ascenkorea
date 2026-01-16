@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
-import { Language } from '../App';
+// Fix: Import Language from types instead of App
+import { Language } from '../types';
 
 const Hero: React.FC<{ lang: Language }> = ({ lang }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });

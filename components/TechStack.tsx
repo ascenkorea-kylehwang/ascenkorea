@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
-import { Language } from '../App';
+// Fix: Import Language from types instead of App
+import { Language } from '../types';
 
 // Updated to accept lang prop to fix TypeScript error in App.tsx
 const TechStack: React.FC<{ lang: Language }> = ({ lang }) => {
