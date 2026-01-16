@@ -1,0 +1,8 @@
+{
+  "name": "ASCENKOREA | GNSS Expert",
+  "description": "GNSS 솔루션 전문기업 (주)아센코리아. GPS 모듈, 안테나, 정밀 위치 결정 솔루션 제공.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
